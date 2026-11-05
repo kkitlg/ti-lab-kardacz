@@ -57,7 +57,7 @@ body {
 
 .card--highlight {
     border: 2px solid #4426FF;
-    background-color: #f0edff;
+    background-color: #e2dcff;
 }
 
 /* Tabela cennika */
@@ -121,7 +121,7 @@ main {
 #kontakt {
     padding: 25px 30px;
     margin: 0 -30px;
-    background-color: #F0F7FF;
+    background-color: #ffffff;
 }
 
 /* Uporządkowanie danych kontaktowych */
@@ -179,4 +179,20 @@ footer p {
 .card:hover {
     transform: translateY(-6px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.copyright {
+    text-align: center;
+}
+
+.card-label {
+    color: #4426FF;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0 0 8px;
+}
+
+.card__price {
+    color: #4426FF;
+    font-weight: bold;
 }
