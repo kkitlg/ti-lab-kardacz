@@ -187,7 +187,7 @@ footer p {
 
 .card-label {
     color: #4426FF;
-    font-size: 15px;
+    font-size: 14gpx;
     font-weight: bold;
     margin: 0 0 8px;
 }
@@ -195,4 +195,8 @@ footer p {
 .card__price {
     color: #4426FF;
     font-weight: bold;
+}
+
+.num {
+    text-align: right;
 }
