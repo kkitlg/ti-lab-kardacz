@@ -1,6 +1,7 @@
 <?php
 $firma = 'Szprycha';
 $rok = date('Y');
+$imie = $_GET['imie'] ?? 'Gościu';
 
 $cennik = [
     ['nazwa' => 'Przegląd roweru', 'cena' => 120],
@@ -57,6 +58,7 @@ $cennik = [
     <main>
 
         <h1>Witamy w Pracowni Rowerowej Szprycha!</h1>
+        <p>Cześć, <?= htmlspecialchars($imie) ?>!</p>
 
     <section id="uslugi">
 
