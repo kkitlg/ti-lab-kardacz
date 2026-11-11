@@ -117,6 +117,37 @@ $cennik = [
 
     </section>
 
+    <section id="wykres">
+    <h2>Ceny usług – wykres</h2>
+
+        <svg viewBox="0 0 420 190" width="420" height="190" role="img"
+        aria-labelledby="wykres-tytul">
+            <title id="wykres-tytul">Ceny usług pracowni Szprycha</title>
+
+            <?php foreach ($cennik as $i => $usluga): ?>
+            <text
+                x="10"
+                y="<?= 23 + $i * 45 ?>"
+                font-size="14"
+            ><?= htmlspecialchars($usluga['nazwa']) ?></text>
+
+            <rect
+                x="160"
+                y="<?= 5 + $i * 45 ?>"
+                width="<?= $usluga['cena'] * 1.5 ?>"
+                height="20"
+                fill="#e2dcff"
+            />
+
+            <text
+                x="<?= 170 + $usluga['cena'] * 1.5 ?>"
+                y="<?= 23 + $i * 45 ?>"
+                font-size="14"
+            ><?= $usluga['cena'] ?> zł</text>
+            <?php endforeach; ?>
+        </svg>
+    </section>
+
     <footer id="kontakt">
 
         <h2>Kontakt</h2>
