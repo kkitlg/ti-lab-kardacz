@@ -146,9 +146,13 @@ main {
 
 /* Logo pracowni */
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-size: 26px;
     font-weight: bold;
     color: #4426FF;
+    text-decoration: none;
     margin: 0;
 }
 
@@ -200,7 +204,7 @@ footer p {
 
 .card-label {
     color: #4426FF;
-    font-size: 14gpx;
+    font-size: 14px;
     font-weight: bold;
     margin: 0 0 8px;
 }
