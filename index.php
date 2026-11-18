@@ -117,8 +117,12 @@ $cennik = $pdo->query('SELECT * FROM uslugi ORDER BY id')->fetchAll();
     <section id="wykres">
     <h2>Ceny usług – wykres</h2>
 
-        <svg viewBox="0 0 420 190" width="420" height="190" role="img"
-        aria-labelledby="wykres-tytul">
+        <svg viewBox="0 0 420 <?= count($cennik) * 45 + 10 ?>"
+            width="420"
+            height="<?= count($cennik) * 45 + 10 ?>"
+            role="img"
+            aria-labelledby="wykres-tytul">
+
             <title id="wykres-tytul">Ceny usług pracowni Szprycha</title>
 
             <?php foreach ($cennik as $i => $usluga): ?>
