@@ -5,6 +5,18 @@ require 'baza.php';
 
 $blad = '';
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['akcja'] ?? '') === 'usun') {
+    $id = filter_var($_POST['id'] ?? '', FILTER_VALIDATE_INT);
+
+    if ($id !== false && $id > 0) {
+        $z = $pdo->prepare('DELETE FROM uslugi WHERE id = :id');
+        $z->execute(['id' => $id]);
+    }
+
+    header('Location: admin.php');
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['akcja'] ?? '') === 'dodaj') {
     $nazwa = trim($_POST['nazwa'] ?? '');
     $cena = filter_var($_POST['cena'] ?? '', FILTER_VALIDATE_INT);
@@ -32,21 +44,32 @@ $cennik = $pdo->query('SELECT * FROM uslugi ORDER BY id')->fetchAll();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel administratora – Szprycha</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-    <h1>Witaj, admin</h1>
+<nav class="navbar navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="index.php">Szprycha – panel administratora</a>
+            <a class="btn btn-outline-light btn-sm" href="wyloguj.php">Wyloguj się</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <h1>Witaj, admin</h1>
 
     <p>Jesteś zalogowany jako <?= htmlspecialchars($_SESSION['uzytkownik']) ?>.</p>
 
     <h2>Lista usług</h2>
 
-    <table border="1" cellpadding="8">
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nazwa</th>
                 <th>Cena (zł)</th>
+                <th>Akcje</th>
             </tr>
         </thead>
         <tbody>
@@ -55,6 +78,13 @@ $cennik = $pdo->query('SELECT * FROM uslugi ORDER BY id')->fetchAll();
                     <td><?= $usluga['id'] ?></td>
                     <td><?= htmlspecialchars($usluga['nazwa']) ?></td>
                     <td><?= $usluga['cena'] ?></td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" name="akcja" value="usun">
+                            <input type="hidden" name="id" value="<?= $usluga['id'] ?>">
+                            <button type="submit" class="btn btn-danger btn-sm">Usuń</button>
+                        </form>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -63,22 +93,31 @@ $cennik = $pdo->query('SELECT * FROM uslugi ORDER BY id')->fetchAll();
     <h2>Dodaj usługę</h2>
 
     <?php if ($blad): ?>
-        <p><?= htmlspecialchars($blad) ?></p>
+        <div class="alert alert-danger" role="alert">
+        <?= htmlspecialchars($blad) ?>
+        </div>
     <?php endif; ?>
 
     <form method="post">
         <input type="hidden" name="akcja" value="dodaj">
 
-        <label for="nazwa">Nazwa</label>
-        <input id="nazwa" name="nazwa" required maxlength="100">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-5">
+                <label for="nazwa" class="form-label">Nazwa</label>
+                <input class="form-control" id="nazwa" name="nazwa" required maxlength="100">
+            </div>
 
-        <label for="cena">Cena (zł)</label>
-        <input id="cena" name="cena" type="number" min="1" required>
+            <div class="col-md-3">
+                <label for="cena" class="form-label">Cena (zł)</label>
+                <input class="form-control" id="cena" name="cena" type="number" min="1" required>
+            </div>
 
-        <button type="submit">Dodaj</button>
+            <div class="col-md-auto">
+                <button type="submit" class="btn btn-primary">Dodaj</button>
+            </div>
+        </div>
     </form>
 
-    <p><a href="wyloguj.php">Wyloguj się</a></p>
-
+    </div>
 </body>
 </html>
