@@ -1,14 +1,11 @@
 <?php
+require 'baza.php';
+
 $firma = 'Szprycha';
 $rok = date('Y');
 $imie = $_GET['imie'] ?? 'Gościu';
 
-$cennik = [
-    ['nazwa' => 'Przegląd roweru', 'cena' => 120],
-    ['nazwa' => 'Naprawa hamulców', 'cena' => 60],
-    ['nazwa' => 'Regulacja przerzutek', 'cena' => 50],
-    ['nazwa' => 'Wymiana dętki', 'cena' => 30]
-];
+$cennik = $pdo->query('SELECT * FROM uslugi ORDER BY id')->fetchAll();
 ?>
 
 <!DOCTYPE html>
